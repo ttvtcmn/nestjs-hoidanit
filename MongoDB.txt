@@ -1,2 +1,0 @@
-ttvtcmn/4KwlLVpXq5qwwNbs
-mongodb+srv://ttvtcmn:4KwlLVpXq5qwwNbs@cluster0.i4vcbpa.mongodb.net/
