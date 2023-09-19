@@ -1,27 +1,27 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
-import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { UsersModule } from './users/users.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { StatefulModule } from './stateful/stateful.module';
+import { StatelessModule } from './stateless/stateless.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGODB_URI'),
+        uri: configService.get<string>("MONGODB_URI"),
       }),
       inject: [ConfigService],
     }),
-
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
-    UserModule,
+    UsersModule,
+    StatefulModule,
+    StatelessModule
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
